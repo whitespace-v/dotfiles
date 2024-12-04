@@ -49,6 +49,7 @@
         },
         "window-rewrite-default": "",
         "window-rewrite": {
+            "title<.*Thunar.*>": "",
             "title<.*Яндекс Музыка.*>": "󰰵",
             "title<.*youtube.*>": "", 
             "class<firefox>": "",
