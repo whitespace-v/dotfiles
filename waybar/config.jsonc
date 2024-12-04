@@ -1,0 +1,164 @@
+// -*- mode: jsonc -*-
+[{
+    "output": ["DP-2", "DP-3"],
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 34, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    "modules-left": [
+        "custom/logo",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "custom/previous",
+        "mpris",
+        "custom/next"
+    ],
+    "modules-right": [
+        "cava",
+        "custom/mem",
+        "custom/cpu",
+        "custom/ram",
+        "custom/gpufree",
+	      "wireplumber",
+        "clock",
+        "custom/ip",
+        "tray"
+    ],
+    // Modules configuration
+    "custom/logo":{
+        "format": ""
+    },
+    "hyprland/workspaces": {
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "enable-bar-scroll": true,
+        "disable-scroll-wraparound": true,
+        "format": "{windows}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "9": "9",
+            "10": "10",
+            "active": ""
+        },
+        "window-rewrite-default": "",
+        "window-rewrite": {
+            "title<.*Яндекс Музыка.*>": "󰰵",
+            "title<.*youtube.*>": "", 
+            "class<firefox>": "",
+            "class<kitty>": "",
+            "class<.*telegram.*>": "",
+            "class<firefox> title<.*github.*>": "",
+            "foot": "", 
+            "code": "󰨞",
+            "title<.*nvim.*>": "",
+            "title<.* - (.*) - VSCodium>": "codium $1"
+	    }
+    },
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 40,
+        "all-outputs": true
+    },
+    "cava": {
+        //"cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+        "framerate": 30,
+        "autosens": 1,
+        "bars": 14,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pipewire",
+        "source": "auto",
+        "stereo": true,
+        "bar_delimiter": 0,
+        "noise_reduction": 0.77,
+        "input_delay": 2,
+        "hide_on_silence": true,
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        "actions": {
+            "on-click-right": "mode"
+        }
+    },
+    "custom/ip":{
+        "exec": "~/.config/get_ip.sh",
+        "format": "{}",
+        "interval": 15
+    },
+    "custom/cpu": {
+        "exec": "mpstat 1 5 | awk 'END{print 100-$NF\"%\"}'",
+        "interval": 3,
+        "format": "  {}"
+    },
+    "custom/gpufree": {
+        "exec": "nvidia-smi --query-gpu=memory.free --format=csv | tail -1",
+        "interval": 3,
+        "format": "  {}"
+    },
+    "custom/ram": {
+        "exec": "~/.config/get_ram.sh",
+        "interval": 3,
+        "format": "  {}"
+    },
+    "custom/previous": {
+      "format": "󰒮",
+      "tooltip": false,
+      "on-click": "playerctl previous"
+    },
+    "custom/next": {
+        "format": "󰒭",
+        "tooltip": false,
+        "on-click": "playerctl next"
+      },
+    "mpris": {
+ 	    "format": "{status_icon} {dynamic}",
+        "interval": 1,
+        "dynamic-len": 40,
+	    "status-icons": {
+            "playing": "▶",
+            "paused": "⏸",
+            "stopped": ""
+        },
+        "dynamic-order": ["title", "artist"],
+        "ignored-players": ["firefox"]
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10
+    },
+    "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    // "temperature": {
+    //     // "thermal-zone": 2,
+    //     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    //     "critical-threshold": 80,
+    //     // "format-critical": "{temperatureC}°C {icon}",
+    //     "format": "{temperatureC}°C {icon}",
+    //     "format-icons": ["", "", ""]
+    "wireplumber": {
+        "scroll-step": 5, // %, can be a float
+        "format": "  {volume}%",
+        "format-bluetooth": "{icon} {volume}% ",
+        "format-bluetooth-muted": " {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    }
+}
+]
